@@ -179,7 +179,7 @@ function App() {
           <div style={{margin: '15px 0'}}>
             <div className="info-item">📅 Martes 03 de Marzo</div>
             <div className="info-item">⏰ 3:00 PM</div>
-            <div className="info-item">📍 Calle Ignacio López Rayón</div>
+            <div className="info-item">📍 Calle Ignacio López Rayón,Zinacantepec (Atras de plaza MIA)</div>
             <div className="info-item">🧚 Temática: Hadas</div>
           </div>
 
