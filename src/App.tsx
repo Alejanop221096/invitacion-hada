@@ -33,11 +33,11 @@ function App() {
       audioRef.current.play().catch(() => console.log("Audio bloqueado"));
     }
 
-    const nuevasHadas: Hada[] = Array.from({ length: 50 }).map((_, i) => ({
+    const nuevasHadas: Hada[] = Array.from({ length: 40 }).map((_, i) => ({
       id: i,
       icono: ['🧚‍♀️', '🧚‍♂️', '🦋', '✨', '🌸', '💫', '🌹'][Math.floor(Math.random() * 7)],
-      x: (Math.random() - 0.5) * (window.innerWidth < 600 ? 300 : 800), 
-      y: (Math.random() - 0.8) * 600, 
+      x: (Math.random() - 0.5) * (window.innerWidth < 600 ? 250 : 600), 
+      y: (Math.random() - 0.8) * 500, 
       rotacion: (Math.random() - 0.5) * 720,
       retraso: Math.random() * 0.5, 
       color: ['#FF85A1', '#FFEAA7', '#A29BFE', '#FFFFFF'][Math.floor(Math.random() * 4)]
@@ -66,86 +66,80 @@ function App() {
           position: relative; overflow: hidden; 
         }
 
-        /* FONDO DE VIDEO RESPONSIVE */
-        .video-background { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 0; pointer-events: none; }
+        .video-background { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 0; }
         .video-background iframe { 
           position: absolute; top: 50%; left: 50%; 
           width: 100vw; height: 100vh; 
-          transform: translate(-50%, -50%) scale(1.5); 
-          object-fit: cover; border: none; opacity: 0.6;
+          transform: translate(-50%, -50%) scale(1.8); 
+          object-fit: cover; border: none; opacity: 0.7;
         }
 
         .overlay-magico { 
           position: absolute; top: 0; left: 0; width: 100%; height: 100%; 
-          background: linear-gradient(rgba(26, 15, 46, 0.5), rgba(45, 27, 78, 0.6)); 
+          background: radial-gradient(circle, rgba(45, 27, 78, 0.2) 0%, rgba(0, 0, 0, 0.6) 100%);
           z-index: 2; pointer-events: none; 
         }
 
-        /* TARJETA AJUSTADA A MÓVIL */
+        /* TARJETA MÁS ESTILIZADA Y TRANSPARENTE */
         .fairy-card { 
-          background: rgba(45, 27, 78, 0.8); 
-          backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); 
-          border-radius: 40px 10px; padding: 25px; 
-          max-width: 340px; width: 88%; text-align: center; 
-          box-shadow: 0 0 40px rgba(123, 97, 255, 0.5); 
-          z-index: 10; color: white; border: 1.5px solid rgba(255, 234, 167, 0.3); 
-          margin-top: -20px;
+          background: rgba(30, 15, 50, 0.65); /* Más transparente */
+          backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); 
+          border-radius: 30px; padding: 20px; 
+          max-width: 300px; /* Más angosta para dejar ver el fondo */
+          width: 80%; text-align: center; 
+          box-shadow: 0 8px 32px 0 rgba(123, 97, 255, 0.3); 
+          z-index: 10; color: white; border: 1px solid rgba(255, 255, 255, 0.15); 
+          animation: flotar 4s ease-in-out infinite;
+        }
+
+        @keyframes flotar {
+          0%, 100% { transform: translateY(0); }
+          50% { transform: translateY(-10px); }
         }
 
         .nombre-festejada { 
           font-family: 'Cinzel Decorative', cursive; 
-          font-size: 2.2rem; /* Más pequeño para celular */
-          color: #ffeaa7; margin: 5px 0; text-shadow: 0 0 15px #7B61FF; 
+          font-size: 1.8rem;
+          color: #ffeaa7; margin: 5px 0; text-shadow: 0 0 10px #7B61FF; 
         }
 
         .fairy-info { 
-          text-align: left; background: rgba(255,255,255,0.08); 
-          padding: 15px; border-radius: 15px; margin: 15px 0; 
-          border-left: 3px solid #FF85A1; 
+          text-align: center; background: rgba(255,255,255,0.05); 
+          padding: 12px; border-radius: 15px; margin: 12px 0; 
         }
 
-        .info-item { margin: 6px 0; color: #E0BBE4; font-size: 0.85rem; font-weight: 500; }
+        .info-item { margin: 4px 0; color: #E0BBE4; font-size: 0.8rem; font-weight: 400; }
 
         .pd-regalo { 
-          background: rgba(255, 133, 161, 0.2); padding: 8px; 
-          border-radius: 10px; font-size: 0.75rem; color: #ffeaa7; 
-          border: 1px dashed #FF85A1; margin-bottom: 15px; 
+          font-size: 0.7rem; color: #ffeaa7; font-style: italic; margin-bottom: 15px; 
+          opacity: 0.9;
         }
 
         .fairy-btn { 
           background: linear-gradient(45deg, #7B61FF, #FF85A1); 
-          color: white; border: none; padding: 15px; 
-          border-radius: 50px; font-weight: 600; font-size: 0.9rem;
+          color: white; border: none; padding: 12px; 
+          border-radius: 50px; font-weight: 600; font-size: 0.8rem;
           text-transform: uppercase; cursor: pointer; width: 100%; 
-          box-shadow: 0 5px 15px rgba(123, 97, 255, 0.4); 
         }
 
-        .fairy-btn.confirmed { background: #44bd32; }
+        .hada-gigante { position: absolute; width: 120px; z-index: 1; opacity: 0.5; }
+        .h1 { top: 10%; left: -150px; animation: pasarD 15s linear infinite; }
+        .h2 { bottom: 15%; right: -150px; animation: pasarI 18s linear infinite; }
 
-        /* HADAS VOLADORAS */
-        .hada-gigante { 
-          position: absolute; width: 150px; height: auto; 
-          pointer-events: none; z-index: 1; opacity: 0.4; 
-        }
-        .h1 { top: 5%; left: -180px; animation: pasarD 18s linear infinite; }
-        .h2 { bottom: 10%; right: -180px; animation: pasarI 22s linear infinite; }
-
-        @keyframes pasarD { 0% { left: -180px; } 100% { left: 110vw; } }
-        @keyframes pasarI { 0% { right: -180px; transform: scaleX(-1); } 100% { right: 110vw; transform: scaleX(-1); } }
+        @keyframes pasarD { 0% { left: -150px; } 100% { left: 110vw; } }
+        @keyframes pasarI { 0% { right: -150px; transform: scaleX(-1); } 100% { right: 110vw; transform: scaleX(-1); } }
 
         .explosion-wrapper { position: absolute; top: 50%; left: 50%; pointer-events: none; z-index: 100; }
-        .hada-voladora { position: absolute; font-size: 1.8rem; opacity: 0; animation: estallidoMagico 2s forwards; }
+        .hada-voladora { position: absolute; font-size: 1.5rem; opacity: 0; animation: estallidoMagico 2s forwards; }
         
         @keyframes estallidoMagico { 
-          0% { opacity: 0; transform: translate(0, 0) scale(0.3); } 
-          30% { opacity: 1; } 
-          100% { opacity: 0; transform: translate(var(--x), var(--y)) rotate(var(--r)) scale(2); } 
+          0% { opacity: 0; transform: translate(0, 0); } 
+          100% { opacity: 0; transform: translate(var(--x), var(--y)) rotate(var(--r)) scale(1.5); } 
         }
 
         @media (min-width: 600px) {
-          .fairy-card { max-width: 380px; padding: 35px; }
-          .nombre-festejada { font-size: 2.8rem; }
-          .info-item { font-size: 0.95rem; }
+          .fairy-card { max-width: 360px; padding: 30px; }
+          .nombre-festejada { font-size: 2.5rem; }
         }
       `}</style>
 
@@ -170,28 +164,24 @@ function App() {
             {hadas.map((h) => (
               <span key={h.id} className="hada-voladora" style={{
                   '--x': `${h.x}px`, '--y': `${h.y}px`, '--r': `${h.rotacion}deg`,
-                  animationDelay: `${h.retraso}s`, textShadow: `0 0 20px ${h.color}`
+                  animationDelay: `${h.retraso}s`
                 } as EstiloMagico}> {h.icono} </span>
             ))}
           </div>
 
-          <p style={{fontFamily: 'Cinzel Decorative', color: '#ffeaa7', margin: 0, fontSize: '1rem'}}>🌹 ¡Estás Invitado! 🌹</p>
+          <p style={{fontFamily: 'Cinzel Decorative', color: '#ffeaa7', margin: 0, fontSize: '0.8rem'}}>🌹 Estás Invitado 🌹</p>
           <h1 className="nombre-festejada">Fernandita</h1>
           
           <div className="fairy-info">
-            <div className="info-item">📅 Martes 03 de Marzo</div>
-            <div className="info-item">⏰ 3:00 PM</div>
+            <div className="info-item">📅 03 de Marzo | ⏰ 3:00 PM</div>
             <div className="info-item">📍 Calle Ignacio López Rayón</div>
-            <p style={{fontSize: '0.7rem', margin: '0 0 0 22px', color: '#E0BBE4'}}>(atrás de Plaza Mía)</p>
             <div className="info-item">🧚 Temática: Hada</div>
           </div>
 
-          <div className="pd-regalo">
-            🌟 Si vas disfrazado te daremos un regalito 🌟
-          </div>
+          <p className="pd-regalo">🌟 Si vas disfrazado habrá un regalito 🌟</p>
 
           <button className={`fairy-btn ${confirmado ? 'confirmed' : ''}`} onClick={manejarConfirmacion}>
-            {confirmado ? '💖 ¡NOS VEMOS PRONTO! 💖' : 'Confirmar Asistencia'}
+            {confirmado ? '💖 ¡CONFIRMADO! 💖' : 'Confirmar'}
           </button>
         </div>
       </div>
